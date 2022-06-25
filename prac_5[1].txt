@@ -1,0 +1,228 @@
+      PRACTICAL-5 
+
+1.  create table salesmen(snum varchar2(6) primary key,sname varchar2(20) not null,city varchar2(15),comm number(5,2),check(snum like 'S%'));
+ 
+insert into salesmen values('S1001','piyush','Landon',0.12);
+
+insert into salesmen values('S1002','Niraj','San jose',0.13);
+
+insert into salesmen values('S1003',Miti','London',0.11);
+
+insert into Salesmen values('S1004','Rajesh','Barcelona',0.15);
+
+insert into salesmen values('S1005','Haresh','New york',0.10);
+
+insert into salesmen values('S1006','Ram','Bombay',0.10);
+
+insert into salesmen values('S1007','Nehal','Delhi'0.09);
+
+
+2.  create table customer(cnum varchar2(6) primary key,cname varchar2(20) not null,city varchar2(15),rating number(5),snum varchar2(6),check(cnum like 'C%'));
+
+insert into customer values('C2001','Hardik','London',100,'S1001');
+
+insert into customer values('C2002','Geeta','Rome',200,'S1003');
+
+insert into customer values('C2003','Kavish','San jose',200,'S1002');
+
+insert into customer values('C2004','Dhruv','Berlin',300,'S1002');
+
+insert into customer values('C2005','Pratham','Lonon',100,'S1001');
+
+insert into customer values('C2006','Vyomesh','San Jose',300,'S1001');
+
+insert into customer values('C2007','Kirit','Rome',100,'S1004');
+
+
+ 3.create table orders(onum varchar2(6) primary key,amt number(10,2) not null,odate date,cnum varchar2(6),snum varchar2(6),check(onum like 'O%'));
+
+insert into orders values('O3001',18.69,'mar-10-90','C2008','S1007');
+
+insert into orders values('O3003',767.19,'mar-10-90','c2001','S1001');
+
+insert into orders values('O3002',1900.10,'oct-03-90','c2007','S1004');
+
+insert into orders values('O3005',5160.45,'oct-04-90','C2003','S1002');
+
+insert into orders values('O3006',1098.16,'mar-10-90','c2008','S1007');
+
+insert into orders values('O3009',1713.23,'April-10-90','C2002','S1003');
+
+insert into orders values('O3007',75.75,'April-10-90','C2004','S1002');
+
+insert into orders values('O3008',4723.00,'May-10-90','C2006','S1001');
+
+insert into orders values('O3010',1309.95,'May-10-90','C2004','S1001');
+
+insert into orders values('O3011',9891.88,'june-10-90','C2006','S1001');
+
+
+PERFORM FOLLOWING QUERIES.
+
+                                              SELECT
+                                            -----------
+ANSWER
+
+1. select*from salesmen;
+
+2. select snum,sname,city from salesmen;
+
+3. select odate,snum,onum,amt from orders;
+
+4. select distinct *from orders;
+
+5. select sname,city from salesmen where city = 'London';
+
+6. select * from customer where rating = 100;
+
+7. select onum,amt,odate from orders;
+
+8. select * from customer where snum = 'S1001';
+
+9. select city,sname,snum,comm from salesmen;  
+
+10. select rating from customer where city ='san jose';
+
+11.select distinct snum from salesmen; 
+
+    OPERATORS
+   -------------
+12. select*from customer where rating>200;
+
+13. select*from customer where rating>200 and city='San jose';
+
+14. select*from customer where rating>200 or city='San jose';
+
+15. select*from customer where rating<200 or city='San jose';
+
+16. select*from customer where not rating>200 or not city = 'san jose';
+
+17. select*from orders whete amt>1000;
+ 
+18. select sname,city from salesmen where comm>0.10 and city='London';
+
+19. select * from customer where rating>100 and city='Rome';
+
+    SPECIAL OPERATORS
+--------------------------
+
+20. select*from salesmen where city in('Barcelona','London');
+
+21. select*from customer where snum in('S1001','S1007','S1004');
+
+22. select*from salesmen where comm between 0.10 and 0.12;
+
+23. select*from customer where cname like 'A%G';
+
+24. select*from customer where cname like 'G%';
+
+25. select*from salesmen where sname like 'P%h';
+
+    NULL OPERATORS;
+------------------------------
+26. select*from customer where city is null;
+
+27. select*from orders where odate between 'oct-03-1990' and 'oct-04-1990';  
+
+28. select*from orders where odate in('oct-03-1990','oct-04-1990');
+
+29. select*from customer where cname like 'A%H'; 
+
+30. select*from customer where cname like 'C%';  
+
+31. select*from orders where amt is not null;
+
+    FUNCTION;
+------------------------- 
+32. select sum(amt) "total sum" from orders;
+    select avg(amt) "Average value" from orders;
+  
+33. select distinct count(snum) from orders;
+
+34. select count(rating) from customer where rating is not null;
+
+35. select snum,max(amt)from orders group by snum;
+
+36. select max(amt)snum,odate,from orders group by snum,odate;
+
+37. select odate,max(amt) from orders group by odate;
+
+38. select count(onum) from orders where odate='oct-03-90';  
+ 
+39. select count(city) from customer where city is not null;
+
+40. select min(cname)from customer where cname like'G%';
+
+41. select cnum,min(amt) from orders group by cnum;
+
+42. select max(rating) from customer group by city;
+
+43. select count(distinct snum) odate from orders group by odate;
+
+44. select * from orders order by cnum desc;
+
+45. select*from orders order by cnum,amt desc;
+
+46. select sname,comm "column number" from salesmen order by rownum desc;
+
+47. select o.onum ,o.snum,s.comm from orders o,salemen s where s.snum = o.snum;
+
+48. select city,max(rating)"the hightest rating " from customer group by city;
+
+49. select rating,cname,cnum,from customer order by rating desc;
+
+50. select sum(amt),odate from orders order by sum(amt)desc;
+
+  join:
+-------------------
+51.select c.name,s.name from customer c,salesmen s where c.num = s.snum;
+
+52.select orders.onum,customer.cname from orders, customer where orders.cnum=customer.cnum;
+
+53.select s.sname,c.cname from salesman s,customer c where o.snum=s.snum and o.cnum=c.cnum;
+
+54.select c.cname,c.city from salesman s,customer c where c.cnum=s.snum and s.comm>0.12;
+
+55.select c.cname,s.sname,s.comm from salesman s,customer c,orders o where c.cnum=s.snum and o.cnum and c.rating>100;
+
+ORDERS:
+----------------------
+56. select c.cname,c.city from customer c,salesman s where c.snum = s.snum and s.sname = 'Piyush';
+
+57. select distinct sname,city from salesman; 
+
+58. select o.onum,o.amt,o.odate,o.amt from orders o,salesman s where o.snum=s.snum and s.city = 'London';
+
+59. select s.name,s.city,s.snum,o.odate,amt from orders o,salesman s where o.snum=s.snum and s.city = 'London;
+
+60. select c.cname,c.cnum from customer c,salesman s where c.snum = s.snum+1000 and s.sname = 'Piyush';
+
+61. select count(cnum)from customer where rating > (select avg(rating)from customer) and city = 'London';
+
+62. select cname,rating from customer where rating > (select avg(rating) from customer);
+
+63. select distinct salesmen.sname,salesman.city,salesman.comm from salesman,customer where salesman.snum=customer.snum;
+
+64. select*from customer where  rating not in(select rating from customer where city='San Jose;
+  
+65. select name,city,rating "high rating" from customer where rating>=200 union select name,city,rating"low rating" where rating<200;
+
+66. select cname from customer where cnum = (select cnum from orders where odate = 'oct-03-90');
+
+67. select*from customer where rating > any(select rating from customer where city = 'rome');
+
+68. insert into salesmen values('S1008','Rakesh',null,0.14);
+
+69. create table London_staff as select * from salesmen where snum = null)
+
+70. delete from orders where snum=(select snum from salesmen where sname ='piyush');
+
+71. update customer set rating = 400 where snum=(select snum from salesman where sname = 'Piyush');
+
+72. update customer set rating = rating +100 where city ='ROME';
+
+73. update salesmen set comm = comm*2 where city='london';
+
+74. update customer set rating null where city ='London';
+
+75. delete from salesmen where snum in (select snum from customer where rating =100);   
